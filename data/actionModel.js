@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const AMdb = require("./helpers/actionModel");
+const db = require("./helpers/actionModel");
 
 router.get("/", (req, res) => {
-  AMdb.get()
+  db.get()
     .then(pm => {
       res.status(200).json(pm);
     })
@@ -22,7 +22,7 @@ router.get("/", (req, res) => {
 router.get("/:id", (req, res) => {
   const { id } = req.params;
   console.log(id);
-  AMdb.get(id)
+  db.get(id)
     .then(pm => {
       res.status(200).json(pm);
     })
@@ -40,7 +40,7 @@ router.get("/:id", (req, res) => {
 
 router.post("/", (req, res) => {
   const content = req.body;
-  AMdb.insert(content)
+  db.insert(content)
     .then(pm => {
       res.status(200).json(pm);
     })
@@ -56,7 +56,7 @@ router.put("/:id", (req, res) => {
   const content = req.body;
   const { id } = req.params;
 
-  AMdb.update(id, content)
+  db.update(id, content)
     .then(pm => {
       res.status(200).json(pm);
     })
@@ -74,7 +74,7 @@ router.put("/:id", (req, res) => {
 
 router.delete("/:id", (req, res) => {
   const { id } = req.params;
-  AMdb.remove(id)
+  db.remove(id)
     .then(pm => {
       res.status(200).json(pm);
     })
