@@ -26,9 +26,13 @@ A success status code (somewhere in the (200's)) & a message indicating that the
 
 ## How can we partition our application into sub-applications?
 
-You have to create new files. In this case a file for the actionModel & projectModel as well as an index.js. In the index.js you have to use a command along thee lines of 
+You have to create new files. In this case a file for the actionModel & projectModel as well as an index.js. In the index.js you have to use a command along thee lines of:
+
+const projectModel = require("./projectModel")
 
 server.use('/projectModel', projectModel);
+
+that links a route.
 
 then in the projectModel.js we would need to import express, create router = express.Router(); & then export it at the bottom with module.exports = router.
 
