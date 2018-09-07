@@ -8,8 +8,12 @@ router.get("/", (req, res) => {
       res.status(200).json(pm);
     })
     .catch(err => {
-      console.error(`There was an error in your Get function:  ===${err}===`);
-      res.status(500).json({ errMsg: "Unable to fetch Project Model Data" });
+      console.error(
+        `There was an error in your Get function: \n === ${err} ===`
+      );
+      res.status(500).json({
+        errMsg: "Unable to fetch the Project Model Data you were looking for"
+      });
     });
 });
 
@@ -21,8 +25,12 @@ router.get("/:id", (req, res) => {
       res.status(200).json(pm);
     })
     .catch(err => {
-      console.error(`There was an error in your Get function:  ===${err}===`);
-      res.status(500).json({ errMsg: "Unable to fetch Project Model Data" });
+      console.error(
+        `There was an error in your Get function: \n === ${err} ===`
+      );
+      res.status(500).json({
+        errMsg: "Unable to fetch the Project Model Data you were looking for"
+      });
     });
 });
 
@@ -33,7 +41,9 @@ router.post("/", (req, res) => {
       res.status(200).json(pm);
     })
     .catch(err => {
-      console.error(`There was an error in your Post function:  ===${err}===`);
+      console.error(
+        `There was an error in your Post function: \n  === ${err} ===`
+      );
       res.status(500).json({ errMsg: "Unable to create post" });
     });
 });
@@ -41,29 +51,50 @@ router.post("/", (req, res) => {
 router.put("/:id", (req, res) => {
   const content = req.body;
   const { id } = req.params;
-  if (id) {
-    PMdb.update(id, content)
-      .then(pm => {
-        res.status(200).json({ pm });
-      })
-      .catch(err => {
-        console.error(`There was an error in your Put function:  ===${err}===`);
-        res.status(500).json({ errMsg: "Unable to add data to target" });
+
+  PMdb.update(id, content)
+    .then(pm => {
+      res.status(200).json(pm);
+    })
+    .catch(err => {
+      console.error(
+        `There was an error in your Put function: \n === ${err} ===`
+      );
+      res.status(500).json({
+        errMsg: "Unable to add data to the target you were looking for"
       });
-  } else return null;
+    });
 });
 
 router.delete("/:id", (req, res) => {
   const { id } = req.params;
   PMdb.remove(id)
     .then(pm => {
-      res.status(200).json({ pm });
+      res.status(200).json(pm);
     })
     .catch(err => {
       console.error(
-        `There was an error in your Delete function:  ===${err}===`
+        `There was an error in your Delete function: \n === ${err} ===`
       );
-      res.status(500).json({ errMsg: "Unable to delete target" });
+      res
+        .status(500)
+        .json({ errMsg: "Unable to delete the target you were looking for" });
+    });
+});
+
+router.get("/:id/actions", (req, res) => {
+  const { id } = req.params;
+  PMdb.getProjectActions(id)
+    .then(pm => {
+      res.status(200).json(pm);
+    })
+    .catch(err => {
+      console.error(
+        `There was an error in your getProjectActions function: \n === ${err} ===`
+      );
+      res.status(500).json({
+        errMsg: "Unable to fetch Project Model Data you were looking for"
+      });
     });
 });
 
